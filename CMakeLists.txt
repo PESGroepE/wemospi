@@ -3,4 +3,4 @@ project(wemospi)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(wemospi main.cpp Webserver.cpp Webserver.h Handler.cpp Handler.h RFIDHandler.cpp RFIDHandler.h)
+add_executable(wemospi main.cpp Webserver.cpp Webserver.h Handler.cpp Handler.h RFIDHandler.cpp RFIDHandler.h MotionHandler.cpp MotionHandler.h)
