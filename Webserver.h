@@ -9,7 +9,7 @@ class Handler;
 class Webserver {
 public:
     Webserver(std::string, int);
-    void listen();
+    void listen(std::string);
     void addGetHandler(Handler*);
     void addPostHandler(Handler*);
 

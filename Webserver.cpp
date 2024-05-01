@@ -2,7 +2,7 @@
 
 Webserver::Webserver(std::string l, int p):listener(l),port(p),svr() {}
 
-void Webserver::listen() {
+void Webserver::listen(std::string n) {
     svr.listen(listener, port);
 }
 
