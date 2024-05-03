@@ -1,3 +1,7 @@
+/**
+@file MatrixHandler.cpp
+*/
+
 #include "MatrixHandler.h"
 
 MatrixHandler::MatrixHandler():Handler(),msg("") {}

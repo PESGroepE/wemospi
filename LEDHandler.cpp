@@ -1,3 +1,7 @@
+/**
+@file LEDHandler.cpp
+*/
+
 #include "LEDHandler.h"
 
 LEDHandler::LEDHandler():Handler(),status(false) {}

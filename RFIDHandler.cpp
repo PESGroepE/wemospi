@@ -1,3 +1,7 @@
+/**
+@file RFIDHandler.cpp
+*/
+
 #include "RFIDHandler.h"
 
 RFIDHandler::RFIDHandler(std::string v, MatrixHandler *m):Handler(),valid(v),matrix(m) {

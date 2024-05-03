@@ -3,17 +3,45 @@
 
 #include "Handler.h"
 
+/**
+ * @brief LEDHandler klasse die gebruikt wordt om de leds aan te sturen.
+ */
 class LEDHandler: public Handler {
-    public:
-        LEDHandler();
+public:
+    /**
+    * Construeer een nieuw LEDHandler object.
+    * @brief Constructor.
+    */
+    LEDHandler();
 
-        void get(httplib::Server*);
-        void post(httplib::Server*);
+    /**
+    * @brief Roep een get handler aan.
+    * @param svr Pointer naar de httpserver.
+    */
+    void get(httplib::Server*);
 
-        void setStatus(bool);
-        bool getStatus() const;
-    private:
-        bool status;
+    /**
+    * @brief Roep een post handler aan.
+    * @param svr Pointer naar de httpserver.
+    */
+    void post(httplib::Server*);
+
+    /**
+    * @brief Stel de status van de leds in.
+    * @param status Boolean die de status van de leds bepaalt.
+    */
+    void setStatus(bool);
+
+    /**
+    * @brief Haal de status van de leds op.
+    */
+    bool getStatus() const;
+
+private:
+    /**
+    * Status van de leds.
+    */
+    bool status;
 };
 
 

@@ -1,3 +1,7 @@
+/**
+@file main.cpp
+*/
+
 #include <iostream>
 
 #include "Webserver.h"
@@ -9,6 +13,10 @@
 #define LISTENER "0.0.0.0"
 #define PORT 8080
 
+/**
+ * @brief main functie van het programma.
+ * Functie die alle handlers aanmaakt en deze koppelt aan de webserver. Ook is hier de cli geimplementeerd.
+ */
 int main() {
     std::cout << "PES Groep E Wemos Pi" << std::endl;
 
