@@ -9,6 +9,7 @@
 #include "MotionHandler.h"
 #include "MatrixHandler.h"
 #include "LEDHandler.h"
+#include "LedButton.h"
 
 #define LISTENER "0.0.0.0"
 #define PORT 8080
@@ -37,6 +38,9 @@ int main() {
     std::thread t1(&Webserver::listen, &ws, "params");
 
     std::cout << "Ready to receive commands." << std::endl;
+
+    Button butt1(18, 17);
+    
     while(1) {
         std::cout << "input key: ";
         std::string key;
