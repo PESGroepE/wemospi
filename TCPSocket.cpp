@@ -33,6 +33,6 @@ void TCPSocket::handle(Event *e) {
     }
 }
 
-void TCPSocket::sendMessage(std::string) {
-
+void TCPSocket::sendMessage(std::string msg) {
+    send(clientSocket, msg.c_str(), strlen(msg.c_str()),  0);
 }

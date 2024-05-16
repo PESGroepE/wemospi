@@ -4,7 +4,7 @@
 
 #include "RFIDHandler.h"
 
-RFIDHandler::RFIDHandler(std::string v, MatrixHandler *m):Handler(),valid(v),matrix(m) {
+RFIDHandler::RFIDHandler(std::string v, MatrixHandler *m, Deuren *d):Handler(),valid(v),matrix(m),deuren(d) {
 }
 
 void RFIDHandler::get(httplib::Server *ws) {
@@ -19,6 +19,7 @@ void RFIDHandler::post(httplib::Server *ws) {
         if (req.has_param("data")) {
             std::string tag = req.get_param_value("data");
             matrix->setMessage(tag);
+            deuren->openSluis(Sluisopties::BUITEN);
             std::cout << tag << std::endl;
         } else {
             res.status = 400;

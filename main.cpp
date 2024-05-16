@@ -13,9 +13,18 @@
 #include <wiringPi.h>
 #include "TCPSocket.h"
 #include "Event.h"
+#include "Deuren.h"
 
 #define LISTENER "0.0.0.0"
 #define PORT 8080
+
+TCPSocket sock(5000);
+
+Deuren d(&sock);
+LEDHandler led;
+MotionHandler motion(&led);
+MatrixHandler matrix;
+RFIDHandler rfid("abcd", &matrix, &d);
 
 /**
  * @brief main functie van het programma.
@@ -25,16 +34,11 @@ int main() {
     std::cout << "PES Groep E Wemos Pi" << std::endl;
 
     std::cout << "Creating handlers..." << std::endl;
-    LEDHandler led;
-    MotionHandler motion(&led);
-    MatrixHandler matrix;
-    RFIDHandler rfid("abcd", &matrix);
 
-    TCPSocket socket(5000);
-    socket.init();
+    sock.init();
 
     std::cout << "Registering webserver listeners..." << std::endl;
-    Webserver ws (LISTENER, PORT);
+    Webserver ws(LISTENER, PORT);
     ws.addPostHandler(&rfid);
     ws.addPostHandler(&motion);
     ws.addGetHandler(&matrix);
@@ -50,10 +54,10 @@ int main() {
         return 1;
     }
     Button butt1(18, 17);
-    
-    while(1) {
+
+    while (1) {
         Event *event = new Event();
-        socket.handle(event);
+        sock.handle(event);
 
         switch (event->getType()) {
             case HUMIDITY:
@@ -61,26 +65,26 @@ int main() {
                 break;
         }
     }
-        /*
-        std::cout << "input key: ";
-        std::string key;
-        std::cin>>key;
+    /*
+    std::cout << "input key: ";
+    std::string key;
+    std::cin>>key;
 
-        std::cout << "input value: ";
-        std::string value;
-        std::cin>>value;
+    std::cout << "input value: ";
+    std::string value;
+    std::cin>>value;
 
-        if (key=="led") {
-            if (value=="true") led.setStatus(true);
-            if (value=="false") led.setStatus(false);
-            continue;
-        }
+    if (key=="led") {
+        if (value=="true") led.setStatus(true);
+        if (value=="false") led.setStatus(false);
+        continue;
+    }
 
-        if (key=="matrix") {
-            matrix.setMessage(value);
-            continue;
-        }
-        */
+    if (key=="matrix") {
+        matrix.setMessage(value);
+        continue;
+    }
+    */
 
     return 0;
 }

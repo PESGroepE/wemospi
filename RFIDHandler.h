@@ -3,6 +3,7 @@
 
 #include "Handler.h"
 #include "MatrixHandler.h"
+#include "Deuren.h"
 
 /**
  * @brief RFIDHandler klasse die gebruikt wordt om de rfid-scanner uit te lezen.
@@ -15,7 +16,7 @@ public:
     * @param valid String met geldig ID.
     * @param matrix Pointer naar MatrixHandler.
     */
-    RFIDHandler(std::string, MatrixHandler*);
+    RFIDHandler(std::string, MatrixHandler*, Deuren*);
 
     /**
     * @brief Roep een get handler aan.
@@ -38,6 +39,8 @@ private:
     * MatrixHandler om aan te sturen.
     */
     MatrixHandler *matrix;
+
+    Deuren *deuren;
 };
 
 #endif //WEMOSPI_RFIDHANDLER_H
