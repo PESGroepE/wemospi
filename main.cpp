@@ -9,7 +9,10 @@
 #include "MotionHandler.h"
 #include "MatrixHandler.h"
 #include "LEDHandler.h"
-#include "LedButton.h"
+#include "Button.h"
+#include <wiringPi.h>
+#include "TCPSocket.h"
+#include "Event.h"
 
 #define LISTENER "0.0.0.0"
 #define PORT 8080
@@ -27,6 +30,9 @@ int main() {
     MatrixHandler matrix;
     RFIDHandler rfid("abcd", &matrix);
 
+    TCPSocket socket(5000);
+    socket.init();
+
     std::cout << "Registering webserver listeners..." << std::endl;
     Webserver ws (LISTENER, PORT);
     ws.addPostHandler(&rfid);
@@ -39,9 +45,23 @@ int main() {
 
     std::cout << "Ready to receive commands." << std::endl;
 
+    if (wiringPiSetupGpio() == -1) {
+        std::cerr << "Error initializing WiringPi" << std::endl;
+        return 1;
+    }
     Button butt1(18, 17);
     
     while(1) {
+        Event *event = new Event();
+        socket.handle(event);
+
+        switch (event->getType()) {
+            case HUMIDITY:
+                matrix.setMessage(event->getData());
+                break;
+        }
+    }
+        /*
         std::cout << "input key: ";
         std::string key;
         std::cin>>key;
@@ -60,8 +80,7 @@ int main() {
             matrix.setMessage(value);
             continue;
         }
-
-    }
+        */
 
     return 0;
 }
