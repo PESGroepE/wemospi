@@ -74,7 +74,7 @@ int main() {
                 d.openSluis(OPEN);
                 break;
             case SLUISKNOP:
-                d.openSluis(Sluisopties::BUITEN);
+                d.openSluis(BINNEN);
                 break;
         }
     }

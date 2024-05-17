@@ -7,9 +7,9 @@ Deuren::Deuren(TCPSocket* t):socket(t) {
 }
 
 void Deuren::openSluis(Sluisopties o) {
-   std::cout<<"begin sluis openen"<<std::endl;
     switch (o) {
         case BUITEN:
+            std::cout<<"begin sluis openen"<<std::endl;
             openDeur(0);
             sleep(3);
             sluitDeur(0);
