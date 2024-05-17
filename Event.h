@@ -1,7 +1,3 @@
-//
-// Created by lucasridder on 5/16/24.
-//
-
 #ifndef WEMOSPI_EVENT_H
 #define WEMOSPI_EVENT_H
 
@@ -9,7 +5,10 @@
 
 enum Type {
     NONE,
-    HUMIDITY
+    HUMIDITY,
+    BRAND,
+    SLUISKNOP,
+    NOODKNOP
 };
 
 class Event {

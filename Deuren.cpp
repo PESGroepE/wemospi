@@ -37,6 +37,10 @@ void Deuren::openSluis(Sluisopties o) {
             openDeur(0);
             openDeur(1);
             break;
+        case DICHT:
+            sluitDeur(0);
+            sluitDeur(1);
+            break;
     }
 }
 

@@ -63,6 +63,19 @@ int main() {
             case HUMIDITY:
                 matrix.setMessage(event->getData());
                 break;
+            case BRAND:
+                if (event->getData()=="1") {
+                    d.openSluis(OPEN);
+                } else {
+                    d.openSluis(DICHT);
+                }
+                break;
+            case NOODKNOP:
+                d.openSluis(OPEN);
+                break;
+            case SLUISKNOP:
+                d.openSluis(Sluisopties::BUITEN);
+                break;
         }
     }
     /*
