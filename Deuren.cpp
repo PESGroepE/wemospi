@@ -1,3 +1,7 @@
+/**
+@file Deuren.cpp
+*/
+
 #include "Deuren.h"
 
 Deuren::Deuren(TCPSocket* t):socket(t) {

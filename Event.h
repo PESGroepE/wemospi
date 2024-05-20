@@ -11,6 +11,9 @@ enum Type {
     NOODKNOP
 };
 
+/**
+ * @brief Enum met event types.
+ */
 class Event {
 public:
     Event();

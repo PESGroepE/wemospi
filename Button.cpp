@@ -1,3 +1,7 @@
+/**
+@file Button.cpp
+*/
+
 #include "Button.h"
 
 Button::Button(int ledPin, int sw1Pin) : ledPin(ledPin), sw1Pin(sw1Pin) {

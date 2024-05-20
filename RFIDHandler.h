@@ -15,6 +15,7 @@ public:
     * @brief Constructor.
     * @param valid String met geldig ID.
     * @param matrix Pointer naar MatrixHandler.
+    * @param deuren Pointer naar Deuren.
     */
     RFIDHandler(std::string, MatrixHandler*, Deuren*);
 
@@ -40,6 +41,9 @@ private:
     */
     MatrixHandler *matrix;
 
+    /**
+    * MatrixHandler om aan te sturen.
+    */
     Deuren *deuren;
 };
 
