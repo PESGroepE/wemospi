@@ -35,16 +35,16 @@ void TCPSocket::handle(Event *e) {
         e->setType(HUMIDITY);
         e->setData(data.substr(d+1, data.size()));
     }
-    if (data.substr(0, d)=="brand") {
-        e->setType(BRAND);
-        e->setData(data.substr(d+1, data.size()));
-    }
     if (data.substr(0, d)=="noodknop") {
         e->setType(NOODKNOP);
         e->setData(data.substr(d+1, data.size()));
     }
     if (data.substr(0, d)=="sluisknop") {
         e->setType(SLUISKNOP);
+        e->setData(data.substr(d+1, data.size()));
+    }
+    if (data.substr(0, d)=="temp") {
+        e->setType(TEMP);
         e->setData(data.substr(d+1, data.size()));
     }
 }

@@ -14,17 +14,19 @@
 #include "TCPSocket.h"
 #include "Event.h"
 #include "Deuren.h"
+#include "Klimaat.h"
 
 #define LISTENER "0.0.0.0"
 #define PORT 8080
 
-TCPSocket sock(5000);
+TCPSocket *sock = new TCPSocket(5000);
 
-Deuren d(&sock);
-LEDHandler led;
-MotionHandler motion(&led);
-MatrixHandler matrix;
-RFIDHandler rfid("abcd", &matrix, &d);
+Deuren *d = new Deuren(sock);
+LEDHandler *led = new LEDHandler;
+MotionHandler *motion = new MotionHandler(led);
+MatrixHandler *matrix = new MatrixHandler;
+RFIDHandler *rfid = new RFIDHandler("abcd", matrix, d);
+Klimaat *klimaat = new Klimaat(d, sock, led);
 
 /**
  * @brief main functie van het programma.
@@ -35,14 +37,14 @@ int main() {
 
     std::cout << "Creating handlers..." << std::endl;
 
-    sock.init();
+    sock->init();
 
     std::cout << "Registering webserver listeners..." << std::endl;
     Webserver ws(LISTENER, PORT);
-    ws.addPostHandler(&rfid);
-    ws.addPostHandler(&motion);
-    ws.addGetHandler(&matrix);
-    ws.addGetHandler(&led);
+    ws.addPostHandler(rfid);
+    ws.addPostHandler(motion);
+    ws.addGetHandler(matrix);
+    ws.addGetHandler(led);
 
     std::cout << "Starting listener on " << LISTENER << ":" << PORT << std::endl;
     std::thread t1(&Webserver::listen, &ws, "params");
@@ -57,24 +59,22 @@ int main() {
 
     while (1) {
         Event *event = new Event();
-        sock.handle(event);
+        sock->handle(event);
 
         switch (event->getType()) {
             case HUMIDITY:
-                matrix.setMessage(event->getData());
+                matrix->setMessage(event->getData());
+                klimaat->handleEvent(event);
                 break;
-            case BRAND:
-                if (event->getData()=="1") {
-                    d.openSluis(OPEN);
-                } else {
-                    d.openSluis(DICHT);
-                }
+            case TEMP:
+                klimaat->handleEvent(event);
                 break;
             case NOODKNOP:
-                d.openSluis(OPEN);
+                d->openSluis(OPEN);
+                klimaat->handleEvent(event);
                 break;
             case SLUISKNOP:
-                d.openSluis(BINNEN);
+                d->openSluis(BINNEN);
                 break;
         }
     }
