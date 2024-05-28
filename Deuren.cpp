@@ -15,35 +15,53 @@ void Deuren::openSluis(Sluisopties o) {
         case BUITEN:
             std::cout<<"begin sluis openen"<<std::endl;
             openDeur(0);
+            pushStatus();
+
             sleep(3);
+
             sluitDeur(0);
+            pushStatus();
 
             sleep(1);
 
             openDeur(1);
+            pushStatus();
+
             sleep(3);
+
             sluitDeur(1);
+            pushStatus();
 
             break;
         case BINNEN:
             openDeur(1);
+            pushStatus();
             sleep(3);
             sluitDeur(1);
+            pushStatus();
 
             sleep(1);
 
             openDeur(0);
+            pushStatus();
+
             sleep(3);
+
             sluitDeur(0);
+            pushStatus();
 
             break;
         case OPEN:
             openDeur(0);
             openDeur(1);
+
+            pushStatus();
             break;
         case DICHT:
             sluitDeur(0);
             sluitDeur(1);
+
+            pushStatus();
             break;
     }
 }
@@ -52,16 +70,22 @@ void Deuren::openAlles() {
     for (int i=0; i<aantaldeuren; i++) {
         openDeur(i);
     }
+    pushStatus();
+}
+
+void Deuren::sluitAlles() {
+    for (int i=0; i<aantaldeuren; i++) {
+        sluitDeur(i);
+    }
+    pushStatus();
 }
 
 void Deuren::openDeur(int d) {
     deurstatus[d] = 1;
-    pushStatus();
 }
 
 void Deuren::sluitDeur(int d) {
     deurstatus[d] = 0;
-    pushStatus();
 }
 
 int Deuren::getStatus(int d) {

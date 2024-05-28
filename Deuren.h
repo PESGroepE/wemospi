@@ -38,6 +38,11 @@ public:
     void openAlles();
 
     /**
+    * @brief Sluit alle deuren.
+    */
+    void sluitAlles();
+
+    /**
     * @brief Vraag de status van een van de deuren op.
     * @param nummer Nummer van de deur.
     */
