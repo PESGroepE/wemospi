@@ -15,6 +15,7 @@
 #include "Event.h"
 #include "Deuren.h"
 #include "Klimaat.h"
+#include "RelaxstoelHandler.h"
 
 #define LISTENER "0.0.0.0"
 #define PORT 8080
@@ -25,6 +26,7 @@ Deuren *d = new Deuren(sock);
 LEDHandler *led = new LEDHandler;
 MotionHandler *motion = new MotionHandler(led);
 MatrixHandler *matrix = new MatrixHandler;
+RelaxstoelHandler *relaxstoel = new RelaxstoelHandler;
 RFIDHandler *rfid = new RFIDHandler("abcd", matrix, d);
 Klimaat *klimaat = new Klimaat(d, sock, led);
 
@@ -45,6 +47,8 @@ int main() {
     ws.addPostHandler(motion);
     ws.addGetHandler(matrix);
     ws.addGetHandler(led);
+    ws.addGetHandler(relaxstoel);
+    ws.addPostHandler(relaxstoel);
 
     std::cout << "Starting listener on " << LISTENER << ":" << PORT << std::endl;
     std::thread t1(&Webserver::listen, &ws, "params");
