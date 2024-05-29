@@ -16,6 +16,8 @@
 #include "Deuren.h"
 #include "Klimaat.h"
 #include "RelaxstoelHandler.h"
+#include "Commandline.h"
+#include "Balie.h"
 
 #define LISTENER "0.0.0.0"
 #define PORT 8080
@@ -29,6 +31,7 @@ MatrixHandler *matrix = new MatrixHandler;
 RelaxstoelHandler *relaxstoel = new RelaxstoelHandler;
 RFIDHandler *rfid = new RFIDHandler("abcd", matrix, d);
 Klimaat *klimaat = new Klimaat(d, sock, led);
+Commandline cli(led, matrix);
 
 /**
  * @brief main functie van het programma.
@@ -53,6 +56,7 @@ int main() {
     std::cout << "Starting listener on " << LISTENER << ":" << PORT << std::endl;
     std::thread t1(&Webserver::listen, &ws, "params");
 
+    std::thread t2(&Commandline::listen, &cli, "params");
     std::cout << "Ready to receive commands." << std::endl;
 
     if (wiringPiSetupGpio() == -1) {
@@ -82,26 +86,6 @@ int main() {
                 break;
         }
     }
-    /*
-    std::cout << "input key: ";
-    std::string key;
-    std::cin>>key;
-
-    std::cout << "input value: ";
-    std::string value;
-    std::cin>>value;
-
-    if (key=="led") {
-        if (value=="true") led.setStatus(true);
-        if (value=="false") led.setStatus(false);
-        continue;
-    }
-
-    if (key=="matrix") {
-        matrix.setMessage(value);
-        continue;
-    }
-    */
 
     return 0;
 }
