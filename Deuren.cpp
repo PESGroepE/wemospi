@@ -88,8 +88,13 @@ void Deuren::sluitDeur(int d) {
     deurstatus[d] = 0;
 }
 
-int Deuren::getStatus(int d) {
+int Deuren::getStatus(int d) const {
     return deurstatus[d];
+}
+
+void Deuren::setStatus(int d, bool s) {
+    deurstatus[d]=s;
+    pushStatus();
 }
 
 void Deuren::pushStatus() {

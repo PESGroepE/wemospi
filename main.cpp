@@ -9,8 +9,6 @@
 #include "MotionHandler.h"
 #include "MatrixHandler.h"
 #include "LEDHandler.h"
-#include "Button.h"
-#include <wiringPi.h>
 #include "TCPSocket.h"
 #include "Event.h"
 #include "Deuren.h"
@@ -61,9 +59,10 @@ int main() {
 
     if (wiringPiSetupGpio() == -1) {
         std::cerr << "Error initializing WiringPi" << std::endl;
-        return 1;
     }
-    Button butt1(18, 17);
+    Balie balie(led, relaxstoel, d);
+    std::thread t3(&Balie::run, &balie, "params");
+    std::cout << "Started balie thread" << std::endl;
 
     while (1) {
         Event *event = new Event();

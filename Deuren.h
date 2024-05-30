@@ -46,7 +46,9 @@ public:
     * @brief Vraag de status van een van de deuren op.
     * @param nummer Nummer van de deur.
     */
-    int getStatus(int);
+    int getStatus(int) const;
+
+    void setStatus(int, bool);
 
 private:
     /**
