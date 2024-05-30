@@ -19,7 +19,7 @@ public:
     /**
     * @brief Functie om de status op te vragen
     */
-    void update();
+    void setStatus(bool);
 
     /**
     * @brief Functie die teruggeeft of de knop is ingedrukt.

@@ -24,6 +24,7 @@ public:
 
 private:
     bool motor;
+    bool knop;
 };
 
 #endif //WEMOSPI_RELAXSTOELHANDLER_H

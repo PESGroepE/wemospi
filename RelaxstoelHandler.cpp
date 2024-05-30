@@ -13,7 +13,9 @@ void RelaxstoelHandler::get(httplib::Server *ws) {
 void RelaxstoelHandler::post(httplib::Server *ws) {
     ws->Post("/druksensor/status", [this](const httplib::Request& req, httplib::Response& res) {
         if (req.body=="true") {
-            motor = true;
+            if (knop) {
+                motor = true;
+            }
         } else {
             motor = false;
         }
@@ -21,9 +23,10 @@ void RelaxstoelHandler::post(httplib::Server *ws) {
 }
 
 void RelaxstoelHandler::setTrilmotor(bool s) {
-    motor = s;
+    knop = s;
+    if (!knop) motor = false;
 }
 
 bool RelaxstoelHandler::getTrilmotor() const {
-    return motor;
+    return knop;
 }

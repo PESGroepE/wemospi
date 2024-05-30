@@ -11,32 +11,37 @@ void Balie::run(std::string s) {
             bool status = deuren->getStatus(0);
             deuren->setStatus(0, !status);
         }
+        knop1.setStatus(deuren->getStatus(0));
 
         if (knop2.isPressed()) {
             std::cout<<"knop2 ingedrukt"<<std::endl;
             bool status = deuren->getStatus(1);
             deuren->setStatus(1, !status);
         }
+        knop2.setStatus(deuren->getStatus(1));
 
         if (knop3.isPressed()) {
             std::cout<<"knop3 ingedrukt"<<std::endl;
             bool status = deuren->getStatus(2);
             deuren->setStatus(2, !status);
         }
+        knop3.setStatus(deuren->getStatus(2));
 
         if (knop4.isPressed()) {
             std::cout<<"knop4 ingedrukt"<<std::endl;
             bool status = relaxstoel->getTrilmotor();
             relaxstoel->setTrilmotor(!status);
         }
+        knop4.setStatus(relaxstoel->getTrilmotor());
 
         if (knop5.isPressed()) {
             std::cout<<"knop5 ingedrukt"<<std::endl;
             bool status = leds->getStatus();
             leds->setStatus(!status);
         }
+        knop5.setStatus(leds->getStatus());
 
-        std::this_thread::sleep_for (std::chrono::seconds(1));
+        std::this_thread::sleep_for (std::chrono::milliseconds (100));
     }
 }
 

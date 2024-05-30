@@ -10,9 +10,9 @@ Button::Button(int ledPin, int sw1Pin) : ledPin(ledPin), sw1Pin(sw1Pin) {
     pullUpDnControl(sw1Pin, PUD_UP);
 }
 
-void Button::update() {
-    if (isPressed()) {
-        digitalWrite(ledPin, HIGH); 
+void Button::setStatus(bool b) {
+    if (b) {
+        digitalWrite(ledPin, HIGH);
     } else {
         digitalWrite(ledPin, LOW);
     }
