@@ -37,11 +37,23 @@ public:
     */
     bool getStatus() const;
 
+    void setKleur(std::string);
+
+    std::string getKleur() const;
+
+    void setBrand(bool);
+
+    bool getBrand() const;
+
 private:
     /**
     * Status van de leds.
     */
     bool status;
+
+    std::string kleur;
+
+    bool brand;
 };
 
 

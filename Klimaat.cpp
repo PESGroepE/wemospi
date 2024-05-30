@@ -21,12 +21,12 @@ void Klimaat::checkBrand(float temp) {
         brand = true;
         deuren->openAlles();
         socket->sendMessage("brand:1");
-        //TODO leds
+        leds->setBrand(true);
     } else if (brand) {
         brand = false;
         deuren->sluitAlles();
         socket->sendMessage("brand:0");
-        //TODO leds
+        leds->setBrand(false);
     }
 }
 

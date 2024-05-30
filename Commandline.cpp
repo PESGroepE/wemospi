@@ -19,6 +19,11 @@ void Commandline::listen(std::string s) {
             continue;
         }
 
+        if (key == "kleur") {
+            leds->setKleur(value);
+            continue;
+        }
+
         if (key == "matrix") {
             matrix->setMessage(value);
             continue;
