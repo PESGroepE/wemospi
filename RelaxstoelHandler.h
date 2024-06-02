@@ -18,12 +18,26 @@ public:
     */
     void post(httplib::Server*);
 
+    /**
+    * @brief Stel de status van de trilmotor in.
+    * @param status Boolean die de status van de trilmotor
+    */
     void setTrilmotor(bool);
 
+    /**
+    * @brief Haal de status van de trilmotor op.
+    */
     bool getTrilmotor() const;
 
 private:
+    /**
+    * Status van de trilmotor.
+    */
     bool motor;
+
+    /**
+    * Status van de knop.
+    */
     bool knop;
 };
 

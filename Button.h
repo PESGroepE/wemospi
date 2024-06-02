@@ -17,7 +17,7 @@ public:
     Button(int ledPin, int sw1Pin);
 
     /**
-    * @brief Functie om de status op te vragen
+    * @brief Functie om de status in te stellen.
     */
     void setStatus(bool);
 
