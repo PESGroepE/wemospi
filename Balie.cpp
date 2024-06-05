@@ -6,67 +6,65 @@
 Balie::Balie(LEDHandler *l, RelaxstoelHandler *r, Deuren *d) : 
     leds(l), relaxstoel(r), deuren(d),
     knop1(18, 17), knop2(5, 6), knop3(24, 25), 
-    knop4(12, 16), knop5(20, 21) { 
+    knop4(12, 16), knop5(20, 21) {
+    bool knopStatus[] = {false, false, false, false, false};
 }
 
 void Balie::run(std::string s) {
-    bool knop1WasIngedrukt = false;
-    bool knop2WasIngedrukt = false;
-    bool knop3WasIngedrukt = false;
-    bool knop4WasIngedrukt = false;
-    bool knop5WasIngedrukt = false;
-
     while (1) {
-        if (knop1.isPressed() && !knop1WasIngedrukt) {
+        if (knop1.isPressed() && !knopStatus[0]) {
             std::cout << "knop1 ingedrukt" << std::endl;
             bool status = deuren->getStatus(0);
             deuren->setStatus(0, !status);
-            knop1WasIngedrukt = true;
+            knopStatus[0] = true;
+            std::this_thread::sleep_for(std::chrono::milliseconds(100)); 
         } else if (!knop1.isPressed()) {
-            knop1WasIngedrukt = false;
+            knopStatus[0] = false;
         }
         knop1.setStatus(deuren->getStatus(0));
 
-        if (knop2.isPressed() && !knop2WasIngedrukt) {
+        if (knop2.isPressed() && !knopStatus[1]) {
             std::cout << "knop2 ingedrukt" << std::endl;
             bool status = deuren->getStatus(1);
             deuren->setStatus(1, !status);
-            knop2WasIngedrukt = true;
+            knopStatus[1] = true;
+            std::this_thread::sleep_for(std::chrono::milliseconds(100)); 
         } else if (!knop2.isPressed()) {
-            knop2WasIngedrukt = false;
+            knopStatus[1] = false;
         }
         knop2.setStatus(deuren->getStatus(1));
 
-        if (knop3.isPressed() && !knop3WasIngedrukt) {
+        if (knop3.isPressed() && !knopStatus[2]) {
             std::cout << "knop3 ingedrukt" << std::endl;
             bool status = deuren->getStatus(2);
             deuren->setStatus(2, !status);
-            knop3WasIngedrukt = true;
+            knopStatus[2] = true;
+            std::this_thread::sleep_for(std::chrono::milliseconds(100)); 
         } else if (!knop3.isPressed()) {
-            knop3WasIngedrukt = false;
+            knopStatus[2] = false;
         }
         knop3.setStatus(deuren->getStatus(2));
 
-        if (knop4.isPressed() && !knop4WasIngedrukt) {
+        if (knop4.isPressed() && !knopStatus[3]) {
             std::cout << "knop4 ingedrukt" << std::endl;
             bool status = relaxstoel->getTrilmotor();
             relaxstoel->setTrilmotor(!status);
-            knop4WasIngedrukt = true;
+            knopStatus[3] = true;
+            std::this_thread::sleep_for(std::chrono::milliseconds(100)); 
         } else if (!knop4.isPressed()) {
-            knop4WasIngedrukt = false;
+            knopStatus[3] = false;
         }
         knop4.setStatus(relaxstoel->getTrilmotor());
 
-        if (knop5.isPressed() && !knop5WasIngedrukt) {
+        if (knop5.isPressed() && !knopStatus[4]) {
             std::cout << "knop5 ingedrukt" << std::endl;
             bool status = leds->getStatus();
             leds->setStatus(!status);
-            knop5WasIngedrukt = true;
+            knopStatus[4] = true;
+            std::this_thread::sleep_for(std::chrono::milliseconds(100)); 
         } else if (!knop5.isPressed()) {
-            knop5WasIngedrukt = false;
+            knopStatus[4] = false;
         }
         knop5.setStatus(leds->getStatus());
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(100)); 
     }
 }

@@ -1,24 +1,25 @@
-/**
-@file Button.cpp
-*/
-
 #include "Button.h"
+#include <wiringPi.h>
 
-Button::Button(int ledPin, int sw1Pin) : ledPin(ledPin), sw1Pin(sw1Pin) {
+Button::Button(int ledPin, int sw1Pin) :
+    ledPin(ledPin),
+    sw1Pin(sw1Pin)
+{
     pinMode(ledPin, OUTPUT);
     pinMode(sw1Pin, INPUT);
     pullUpDnControl(sw1Pin, PUD_UP);
 }
 
 void Button::setStatus(bool b) {
-    if (b) {
-        digitalWrite(ledPin, HIGH);
-    } else {
-        digitalWrite(ledPin, LOW);
-    }
+    digitalWrite(ledPin, b ? HIGH : LOW);
 }
 
 bool Button::isPressed() const {
-    return digitalRead(sw1Pin) == LOW;
+    if (digitalRead(sw1Pin) == LOW) {
+        delay(60);
+        if (digitalRead(sw1Pin) == LOW) {
+            return true;
+        }
+    }
+    return false; 
 }
-
