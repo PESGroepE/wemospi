@@ -47,6 +47,14 @@ void TCPSocket::handle(Event *e) {
         e->setType(TEMP);
         e->setData(data.substr(d+1, data.size()));
     }
+    if (data.substr(0, d)=="beweginglampen") {
+        e->setType(BEWEGINGLAMPEN);
+        e->setData(data.substr(d+1, data.size()));
+    }
+    if (data.substr(0, d)=="bewegingdeur") {
+        e->setType(BEWEGINGDEUR);
+        e->setData(data.substr(d+1, data.size()));
+    }
 }
 
 void TCPSocket::sendMessage(std::string msg) {

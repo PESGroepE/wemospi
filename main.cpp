@@ -6,7 +6,6 @@
 
 #include "Webserver.h"
 #include "RFIDHandler.h"
-#include "MotionHandler.h"
 #include "MatrixHandler.h"
 #include "LEDHandler.h"
 #include "TCPSocket.h"
@@ -24,7 +23,6 @@ TCPSocket *sock = new TCPSocket(5000);
 
 Deuren *d = new Deuren(sock);
 LEDHandler *led = new LEDHandler;
-MotionHandler *motion = new MotionHandler(led);
 MatrixHandler *matrix = new MatrixHandler;
 RelaxstoelHandler *relaxstoel = new RelaxstoelHandler;
 RFIDHandler *rfid = new RFIDHandler("abcd", matrix, d);
@@ -45,7 +43,6 @@ int main() {
     std::cout << "Registering webserver listeners..." << std::endl;
     Webserver ws(LISTENER, PORT);
     ws.addPostHandler(rfid);
-    ws.addPostHandler(motion);
     ws.addGetHandler(matrix);
     ws.addGetHandler(led);
     ws.addGetHandler(relaxstoel);
@@ -83,6 +80,18 @@ int main() {
             case SLUISKNOP:
                 d->openSluis(BINNEN);
                 break;
+            case BEWEGINGLAMPEN:
+                if (event->getData()[0]=='1') {
+                    led->setStatus(true);
+                } else {
+                    led->setStatus(false);
+                }
+            case BEWEGINGDEUR:
+                if (event->getData()[0]=='1') {
+                    d->setStatus(2, true);
+                } else {
+                    d->setStatus(2, false);
+                }
         }
     }
 
