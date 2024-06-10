@@ -86,12 +86,14 @@ int main() {
                 } else {
                     led->setStatus(false);
                 }
+                break;
             case BEWEGINGDEUR:
                 if (event->getData()[0]=='1') {
                     d->setStatus(2, true);
                 } else {
                     d->setStatus(2, false);
                 }
+                break;
         }
     }
 
